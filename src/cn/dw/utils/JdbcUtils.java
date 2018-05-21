@@ -4,28 +4,28 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-// ´ËÀà³ÆÎª¹¤¾ßÀà,Ö÷ÒªÍê³ÉÓëÊı¾İµÄÁ¬½Ó²Ù×÷Óë×ÊÔ´ÊÍ·Å(½¨Òé¹¹Ôì·½·¨Ë½ÓĞ)
+// æ­¤ç±»ç§°ä¸ºå·¥å…·ç±»,ä¸»è¦å®Œæˆä¸æ•°æ®çš„è¿æ¥æ“ä½œä¸èµ„æºé‡Šæ”¾(å»ºè®®æ„é€ æ–¹æ³•ç§æœ‰)
 public class JdbcUtils {
-	// ÔÚÍâ²¿²»ÄÜ¹»new¶ÔÏó,ÒÔºóÍ¨¹ıÀàÀ´µ÷ÓÃ·½·¨,Òò´Ë·½·¨ÉèÖÃstatic
+	// åœ¨å¤–éƒ¨ä¸èƒ½å¤Ÿnewå¯¹è±¡,ä»¥åé€šè¿‡ç±»æ¥è°ƒç”¨æ–¹æ³•,å› æ­¤æ–¹æ³•è®¾ç½®static
 	private JdbcUtils() {
 	}
 
-	// ¾²Ì¬¿é,ÔÚÀà¼ÓÔØµÄÊ±ºòÖ´ĞĞÇÒÖ´ĞĞÒ»´Î
+	// é™æ€å—,åœ¨ç±»åŠ è½½çš„æ—¶å€™æ‰§è¡Œä¸”æ‰§è¡Œä¸€æ¬¡
 	static {
-		// Ò»°ãÇı¶¯,ÎÄ¼ş×ÊÔ´µÄ¼ÓÔØ¶¼»áÔÚ´Ë¾²Ì¬¿éÍê³É
+		// ä¸€èˆ¬é©±åŠ¨,æ–‡ä»¶èµ„æºçš„åŠ è½½éƒ½ä¼šåœ¨æ­¤é™æ€å—å®Œæˆ
 		System.out.println("-------------");
-		// Í¨¹ıÀàÈ«Ãû¼ÓÔØÇı¶¯ĞÅÏ¢.´ËĞĞ´úÂë¾Í¿ÉÒÔÊµÏÖÊı¾İ¿âÇı¶¯µÄ¼ÓÔØ
+		// é€šè¿‡ç±»å…¨ååŠ è½½é©±åŠ¨ä¿¡æ¯.æ­¤è¡Œä»£ç å°±å¯ä»¥å®ç°æ•°æ®åº“é©±åŠ¨çš„åŠ è½½
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver"); 
 		} catch (ClassNotFoundException e) {
-			// Òì³£²»ÄÜÖ±½Ó´òÓ¡,¶øÊÇÒªÏòÉÏÅ×³ö
+			// å¼‚å¸¸ä¸èƒ½ç›´æ¥æ‰“å°,è€Œæ˜¯è¦å‘ä¸ŠæŠ›å‡º
 			throw new RuntimeException(e);
 		}
 	}
 
-	// ±àĞ´Ò»¸ö·½·¨ÊµÏÖÊı¾İ¿âµÄÁ¬½Ó
+	// ç¼–å†™ä¸€ä¸ªæ–¹æ³•å®ç°æ•°æ®åº“çš„è¿æ¥
 	public static Connection getConnection() {
-		// Á¬½ÓÊı¾İ¿âĞèÒªÅäÖÃ£ºurl username password (ÉèÖÃ×Ô¼ºµÄÊı¾İ¿âÃû³Æ,ÕËºÅºÍÃÜÂë)
+		// è¿æ¥æ•°æ®åº“éœ€è¦é…ç½®ï¼šurl username password (è®¾ç½®è‡ªå·±çš„æ•°æ®åº“åç§°,è´¦å·å’Œå¯†ç )
 		try {
 			return DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql", "root", "root");
 		} catch (SQLException e) {
@@ -33,20 +33,13 @@ public class JdbcUtils {
 			throw new RuntimeException(e);
 		}
 	}
-
+    // shift + alt + A
 	public static void main(String[] args) {
-		  System.out.println(JdbcUtils.getConnection());
-		  System.out.println(JdbcUtils.getConnection());
-		  System.out.println(JdbcUtils.getConnection());
-		  System.out.println(JdbcUtils.getConnection());
-		  System.out.println(JdbcUtils.getConnection());
+		System.out.println(JdbcUtils.getConnection());
+		System.out.println(JdbcUtils.getConnection());
+		System.out.println(JdbcUtils.getConnection());
+		System.out.println(JdbcUtils.getConnection());
+		System.out.println(JdbcUtils.getConnection());
 
 	}
 }
-
-
-
-
-
-
-
