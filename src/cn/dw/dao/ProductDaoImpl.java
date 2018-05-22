@@ -2,8 +2,11 @@ package cn.dw.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import cn.dw.model.Product;
 
@@ -12,6 +15,36 @@ public class ProductDaoImpl {
 
 	// 所有的Dao依赖Spring提供的JdbcTemplate,如果要赋值,必须要有Set方法(因为构造方法不灵活)
 	private JdbcTemplate jdbcTemplate = null;
+
+	// public Product getRow(ResultSet rs) {
+	// rs.getString(name);
+	// rs.getString(remark);
+	// ........
+	// }
+
+	public Product getById(int id) {
+		String sql = "select * from product where id=?";
+		// queryForObject: 查询并且返回一个对象
+		// 直接通过接口创建的对象,称为匿名对象,此方式优点效率高.缺点是代码量大
+		// return jdbcTemplate.queryForObject(sql, new RowMapper<Product>() {
+		// @Override
+		// public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+		// Product product = new Product();
+		// product.setName(rs.getString("name"));
+		// product.setPrice(rs.getDouble("price"));
+		// return product;
+		// }
+		//
+		// }, id);
+		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Product>(Product.class), id);
+	}
+
+	public List<Product> queryByName(String name, int page, int size) {
+		String sql = "select * from product where name like ? limit ?,?;";
+		// 表-->类,因此此处应该指定用来存储数据的类型
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Product>(Product.class),
+				new Object[] { "%" + name + "%", (page - 1) * size, size });
+	}
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		System.out.println("setJdbcTemplate()........");
