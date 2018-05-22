@@ -11,58 +11,33 @@ import cn.dw.model.Product;
 import cn.dw.utils.JdbcUtils;
 
 // 操作数据库的前提创建一个Model
-public class ProductDaoImpl extends BaseDaoImpl {
-	
-	public Product getById(int id){
-		Product product = null;
-		String sql="select * from product where id = ?";
-		// 1:获取数据库的连接
-		Connection conn = null;
-		PreparedStatement pre = null;
-		ResultSet rs = null;
-		try {
-			conn = JdbcUtils.getConnection();
-			// 2:配置参数,并且执行SQL
-			pre = conn.prepareStatement(sql);
-			// 模糊查询需要设置%%
-			pre.setInt(1, id);
-			// 3: 通过查询返回结果集 (如果根据ID查询,结果集最多返回一条记录)
-			rs = pre.executeQuery();
-			// 默认光标是在第一行之前,需要调用next
-			if(rs.next()) {// 光标移动到下一行,如果当前行有记录,返回为true
-				// 数据库一行记录,对应Java中对象
-				product=new Product();
-				// 通过列的名称,获取当前行的指定列信息
-				product.setName(rs.getString("name"));
-				product.setPrice(rs.getDouble("price"));
-				product.setRemark(rs.getString("remark"));
-				product.setId(rs.getInt("id"));
-				product.setDate(rs.getDate("date"));
-			}
-			return product;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				pre.close(); // 无论pre是否关闭成功,conn都需要关闭
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					throw new RuntimeException(e);
-				}
-			}
-		}
-	
+// ProductDaoImpl extends BaseDaoImpl<Product>:当ProductDaoImpl继承BaseDaoImpl时 T代表的就是Product类型
+// 如果继承抽象类型,则必须实现抽象类的抽象方法
+public class ProductDaoImpl extends BaseDaoImpl<Product> {
+
+	public Product getById(int id) {
+		String sql = "select * from product where id = ?";
+		return super.getById(sql, id);
 	}
-	
+
+	@Override
+	protected Product getRow(ResultSet rs) throws SQLException {
+		// 数据库一行记录,对应Java中对象
+		Product product = new Product();
+		// 通过列的名称,获取当前行的指定列信息
+		product.setName(rs.getString("name"));
+		product.setPrice(rs.getDouble("price"));
+		product.setRemark(rs.getString("remark"));
+		product.setId(rs.getInt("id"));
+		product.setDate(rs.getDate("date"));
+		return product;
+	}
+
 	// ctrl + shift + o:导入导出包
-	public List<Product> queryByName(String name){
+	public List<Product> queryByName(String name) {
 		// 声明一个集合,用来存储查询到数据库的记录
 		List<Product> proList = new ArrayList<Product>();
-		String sql="select * from product where name like ?";
+		String sql = "select * from product where name like ?";
 		// 1:获取数据库的连接
 		Connection conn = null;
 		PreparedStatement pre = null;
@@ -76,9 +51,9 @@ public class ProductDaoImpl extends BaseDaoImpl {
 			// 3: 通过查询返回结果集 (数据就存储在rs中)
 			rs = pre.executeQuery();
 			// 默认光标是在第一行之前,需要调用next
-			while(rs.next()) {// 光标移动到下一行,如果当前行有记录,返回为true
+			while (rs.next()) {// 光标移动到下一行,如果当前行有记录,返回为true
 				// 数据库一行记录,对应Java中对象
-				Product product=new Product();
+				Product product = new Product();
 				// 通过列的名称,获取当前行的指定列信息
 				product.setName(rs.getString("name"));
 				product.setPrice(rs.getDouble("price"));
@@ -125,4 +100,5 @@ public class ProductDaoImpl extends BaseDaoImpl {
 		String sql = "insert into product (name,price,remark) values (?,?,?)";
 		return super.executeUpdate(sql, new Object[] { product.getName(), product.getPrice(), product.getRemark() });
 	}
+
 }

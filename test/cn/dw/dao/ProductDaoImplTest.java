@@ -39,7 +39,7 @@ public class ProductDaoImplTest {
 	@Test
 	public void testGetById() {
 		// "%%":代表查询所有记录
-		System.out.println(daoImpl.getById(3));
+		System.out.println(daoImpl.getById(4));
 	}
 
 	@Test
