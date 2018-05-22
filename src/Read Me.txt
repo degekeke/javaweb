@@ -7,4 +7,10 @@
 4: 通过spring来优化项目(从下向上优化),首先要加载Spring的配置和Jar包
 
    4.1: 通过连接池(负责数据库的连接操作,并且一开始会初始化Connection对象)取代JdbcUtils
+   
+   4.2: JdbcTemplate依赖DataSouce
+   
+   4.3: ProductDaoImpl依赖JdbcTemplate
+   
+请注意:上面的所有依赖都配置在XML中,以后的main方法与junit单元测试不能够直接new对象(JVM创建Java对象)而是通过Spring getBean获取(spring框架来创建对象)
 
