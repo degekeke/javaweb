@@ -35,6 +35,12 @@ public class ProductDaoImplTest {
 			System.out.println(temp + "=======>" + temp.toString());
 		}
 	}
+	
+	@Test
+	public void testGetById() {
+		// "%%":代表查询所有记录
+		System.out.println(daoImpl.getById(3));
+	}
 
 	@Test
 	public void testDelete() {

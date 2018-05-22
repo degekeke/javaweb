@@ -12,9 +12,52 @@ import cn.dw.utils.JdbcUtils;
 
 // 操作数据库的前提创建一个Model
 public class ProductDaoImpl extends BaseDaoImpl {
-	// main测试的缺点: 1: 不能保留测试痕迹  2:有侵入性  ==> Juint
-//	public static void main(String[] args) {
-//	}
+	
+	public Product getById(int id){
+		Product product = null;
+		String sql="select * from product where id = ?";
+		// 1:获取数据库的连接
+		Connection conn = null;
+		PreparedStatement pre = null;
+		ResultSet rs = null;
+		try {
+			conn = JdbcUtils.getConnection();
+			// 2:配置参数,并且执行SQL
+			pre = conn.prepareStatement(sql);
+			// 模糊查询需要设置%%
+			pre.setInt(1, id);
+			// 3: 通过查询返回结果集 (如果根据ID查询,结果集最多返回一条记录)
+			rs = pre.executeQuery();
+			// 默认光标是在第一行之前,需要调用next
+			if(rs.next()) {// 光标移动到下一行,如果当前行有记录,返回为true
+				// 数据库一行记录,对应Java中对象
+				product=new Product();
+				// 通过列的名称,获取当前行的指定列信息
+				product.setName(rs.getString("name"));
+				product.setPrice(rs.getDouble("price"));
+				product.setRemark(rs.getString("remark"));
+				product.setId(rs.getInt("id"));
+				product.setDate(rs.getDate("date"));
+			}
+			return product;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				pre.close(); // 无论pre是否关闭成功,conn都需要关闭
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	
+	}
+	
 	// ctrl + shift + o:导入导出包
 	public List<Product> queryByName(String name){
 		// 声明一个集合,用来存储查询到数据库的记录

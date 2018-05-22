@@ -54,7 +54,7 @@ public class Product {
 	}
 
 	public void setName(String name) {
-		System.out.println(this);
+//		System.out.println(this);
 		this.name = name;
 	}
 
