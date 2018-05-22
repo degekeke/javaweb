@@ -4,6 +4,20 @@ import java.util.Date;
 
 // 此类是model  类->表    对象->记录  属性->字段  
 public class Product {
+	
+//	public static void main(String[] args) {
+//		// 类只有一份,类只定义的属性和方法
+//		Product product=new Product();
+//		System.out.println(product);
+//		product.setName("xxx");;
+//		System.out.println(product.getName());
+//		
+//		
+//		Product product2=new Product();
+//		System.out.println(product2);
+//		product2.setName("yyy");;
+//		System.out.println(product2.getName());
+//	}
 
 	private Integer id;
 	private String name;
@@ -32,6 +46,7 @@ public class Product {
 	}
 
 	public void setName(String name) {
+		System.out.println(this);
 		this.name = name;
 	}
 
