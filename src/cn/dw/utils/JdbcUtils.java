@@ -13,7 +13,6 @@ public class JdbcUtils {
 	// 静态块,在类加载的时候执行且执行一次
 	static {
 		// 一般驱动,文件资源的加载都会在此静态块完成
-		System.out.println("-------------");
 		// 通过类全名加载驱动信息.此行代码就可以实现数据库驱动的加载
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); 
