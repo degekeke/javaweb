@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 // 此类称为工具类,主要完成与数据的连接操作与资源释放(建议构造方法私有)
 public class JdbcUtils {
 	// 在外部不能够new对象,以后通过类来调用方法,因此方法设置static
@@ -34,11 +37,8 @@ public class JdbcUtils {
 	}
     // shift + alt + A
 	public static void main(String[] args) {
-		System.out.println(JdbcUtils.getConnection());
-		System.out.println(JdbcUtils.getConnection());
-		System.out.println(JdbcUtils.getConnection());
-		System.out.println(JdbcUtils.getConnection());
-		System.out.println(JdbcUtils.getConnection());
-
+		// 1：加载配置文件  2：通过getBean获取对象
+		ApplicationContext context = new ClassPathXmlApplicationContext("spring-bean.xml");
+		System.out.println(context.getBean("dataSource"));
 	}
 }
