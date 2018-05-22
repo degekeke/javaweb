@@ -14,4 +14,4 @@ create table product
 insert into product (name,price,remark) values ('computer',3000.00,'test....');
 insert into product (name,price,remark) values ('Iphone6',6000.00,'test.....');
 
-select * from product;
+select * from product where name like '%xyz%';

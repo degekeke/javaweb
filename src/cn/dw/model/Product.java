@@ -18,8 +18,16 @@ public class Product {
 //		product2.setName("yyy");;
 //		System.out.println(product2.getName());
 //	}
+	
+	
 
 	private Integer id;
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", remark=" + remark + ", date=" + date
+				+ "]";
+	}
+
 	private String name;
 	private Double price;
 	private String remark;

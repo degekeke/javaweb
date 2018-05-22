@@ -2,6 +2,8 @@ package cn.dw.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,15 @@ class ProductDaoImplTest {
 	static void tearDownAfterClass() throws Exception {
 		System.out.println("tearDownAfterClass.....");
 		daoImpl = null;
+	}
+	
+	@Test
+	void testQuery() {
+		// "%%":代表查询所有记录
+		List<Product> proList = daoImpl.queryByName("");
+		for(Product temp:proList) {
+			System.out.println(temp + "=======>" + temp.toString());
+		}
 	}
 
 	@Test
