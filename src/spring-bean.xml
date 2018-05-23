@@ -2,31 +2,59 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 http://www.springframework.org/schema/context 
-http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-    <!-- 给连接池配置连接数据库四大参数 -->
-    <bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-    	<property name="driverClass" value="com.mysql.jdbc.Driver" />
-    	<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mysql" />
-    	<property name="user" value="root" />
-    	<property name="password" value="root" />
-    </bean>
-    <!-- 实现了访问数据库的增、删、查、改操作,因此它肯定需要Connection -->
-    <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
-    	<!-- name="dataSource" 是因为源码中有setDataSource方法 -->
-    	<property name="dataSource" ref="ds" />
-    </bean>
-    
-    <!-- 配置productDao依赖JdbcTemplate -->
-    <bean id="productDao" class="cn.dw.dao.ProductDaoImpl">
-    	<!-- 对应的是相应的set方法 ,ref对应的xml中id-->
-    	<property name="jdbcTemplate" ref="jt" />
-    </bean>
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+">
+	<!-- XML: 有两种: 合法XML(符合语法),有效的XML(在合法的基础上,进行xsd或者dtd的验证称为有效XML) -->
+
+	<!-- 给连接池配置连接数据库四大参数 -->
+	<bean id="ds"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/mysql" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	<!-- 实现了访问数据库的增、删、查、改操作,因此它肯定需要Connection -->
+	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+		<!-- name="dataSource" 是因为源码中有setDataSource方法 -->
+		<property name="dataSource" ref="ds" />
+	</bean>
+
+	<!-- 配置productDao依赖JdbcTemplate -->
+	<bean id="productDao" class="cn.dw.dao.ProductDaoImpl">
+		<!-- 对应的是相应的set方法 ,ref对应的xml中id -->
+		<property name="jdbcTemplate" ref="jt" />
+	</bean>
+
+	<bean id="productService" class="cn.dw.service.ProductServiceImpl">
+		<property name="productDao" ref="productDao" />
+	</bean>
+
+	<!-- 配置声明式事务: 基于AOP的实现,由于Spring高度封装提供的是模板,但是后面日志、异常还是需要AOP的概念 -->
+
 
 </beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
