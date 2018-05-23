@@ -33,9 +33,10 @@ public class ProductServiceImpl {
 
 	// 此数据会从显示层传入
 	public int save(Product product) {
+		System.out.println("save........");
 		// 购物车入库
 		int result = productDao.save(product);
-		Integer.parseInt("xxx");
+//		Integer.parseInt("xxx");
 		return result;
 	}
 

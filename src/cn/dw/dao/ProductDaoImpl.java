@@ -14,7 +14,7 @@ import cn.dw.model.Product;
 public class ProductDaoImpl {
 
 	// 所有的Dao依赖Spring提供的JdbcTemplate,如果要赋值,必须要有Set方法(因为构造方法不灵活)
-	private JdbcTemplate jdbcTemplate = null;
+	private JdbcTemplate jdbcTemplate = null;;
 
 	// public Product getRow(ResultSet rs) {
 	// rs.getString(name);
