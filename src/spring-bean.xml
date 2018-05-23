@@ -25,6 +25,10 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     	<!-- 对应的是相应的set方法 ,ref对应的xml中id-->
     	<property name="jdbcTemplate" ref="jt" />
     </bean>
+    
+    <bean id="productService" class="cn.dw.service.ProductServiceImpl">
+    	<property name="productDao" ref="productDao" />
+    </bean>
 
 </beans>
 
