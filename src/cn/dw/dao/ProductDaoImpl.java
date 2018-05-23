@@ -24,18 +24,6 @@ public class ProductDaoImpl {
 
 	public Product getById(int id) {
 		String sql = "select * from product where id=?";
-		// queryForObject: 查询并且返回一个对象
-		// 直接通过接口创建的对象,称为匿名对象,此方式优点效率高.缺点是代码量大
-		// return jdbcTemplate.queryForObject(sql, new RowMapper<Product>() {
-		// @Override
-		// public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// Product product = new Product();
-		// product.setName(rs.getString("name"));
-		// product.setPrice(rs.getDouble("price"));
-		// return product;
-		// }
-		//
-		// }, id);
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Product>(Product.class), id);
 	}
 

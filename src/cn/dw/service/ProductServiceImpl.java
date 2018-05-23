@@ -1,5 +1,9 @@
 package cn.dw.service;
 
+import java.util.List;
+
+import org.springframework.dao.support.DaoSupport;
+
 import cn.dw.dao.ProductDaoImpl;
 import cn.dw.model.Product;
 
@@ -7,36 +11,36 @@ import cn.dw.model.Product;
 public class ProductServiceImpl {
 	// spring通过xml的配置取代了硬编码,依赖都要交给Spring管理
 	private ProductDaoImpl productDao = null;
+
 	// 通过set注入
 	public void setProductDao(ProductDaoImpl productDao) {
 		this.productDao = productDao;
 	}
-	
+
+	public Product getById(int id) {
+		return productDao.getById(id);
+	}
+
+	public List<Product> queryByName(String name, int page, int size) {
+		return productDao.queryByName(name, page, size);
+	}
+
+	// 此数据会从显示层传入
+	public int delete(int id) {
+		int result = productDao.delete(id);
+		return result;
+	}
+
 	// 此数据会从显示层传入
 	public int save(Product product) {
-		// commit  rollback
-		// 目前service并没有复杂的业务逻辑,因此仅仅调用数据访问层
+		// 购物车入库
 		int result = productDao.save(product);
-		// 模拟事务操作: 希望当前逻辑多个操作是一个整体(只要有异常则操作回滚)
-//		Integer.parseInt("xxxx");
+		Integer.parseInt("xxx");
+		return result;
+	}
+
+	public int update(Product product) {
+		int result = productDao.update(product);
 		return result;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
