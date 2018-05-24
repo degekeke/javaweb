@@ -22,7 +22,7 @@ public class ProductDaoImplTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		System.out.println("setUpBeforeClass.....");
-		context = new ClassPathXmlApplicationContext("spring-bean.xml");
+		context = new ClassPathXmlApplicationContext("spring-public.xml");
 		// daoImpl = (ProductDaoImpl)context.getBean("productDao");
 		serviceImpl = context.getBean("productService", ProductServiceImpl.class);
 	}
