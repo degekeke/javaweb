@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>javaweb</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>javaweb</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 项目启动时,在此处应该添加mvc和spring的配置文件,框架都会提供相应的工具类进行加载 -->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 此工具类定义了一个变量,此变量用来加载Spring SpringMVC的配置文件 -->
+		<init-param>
+		    <!-- 源码中用来存储配置文件的变量 -->
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-*.xml,classpath:mvc-*.xml</param-value>
+		</init-param>
+		<!-- 第一个请求访问servlet时才会初始化.但是我们希望项目启动时就加载配置文件,数值越小优先级越高 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+	    <!-- servlet-name与上面servlet-name100%相同,别名. -->
+		<servlet-name>dispatcherServlet</servlet-name>
+		<!-- jsp页面中,肯定会有 *.css,*.js 但是这些请求都不应该交给Spring MVC,因此为了提高效率,约定一个请求的后缀 -->
+		<url-pattern>*.mvc</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </web-app>

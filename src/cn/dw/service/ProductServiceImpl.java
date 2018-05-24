@@ -3,6 +3,7 @@ package cn.dw.service;
 import java.util.List;
 
 import org.springframework.dao.support.DaoSupport;
+import org.springframework.stereotype.Service;
 
 import cn.dw.dao.ProductDaoImpl;
 import cn.dw.model.Product;
