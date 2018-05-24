@@ -17,6 +17,7 @@ public class AopClass {
 		System.out.println("被切的目标对象:" + jp.getTarget());
 		System.out.println("被切的方法声明:" + jp.getSignature());
 		System.out.println("被切的方法的参数信息:" + Arrays.toString(jp.getArgs()));
+		Integer.parseInt("xxxx");
 	}
 	
 	public void ex(Exception e) {  // e与xml中指定的名称要相匹配

@@ -69,7 +69,7 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 	     -->
 	    <aop:pointcut expression="execution(* cn.dw.service.*.*(..))" id="pt"/>
 	    <!-- tx + aop的配置,就是一个完整的声明式事务 -->
-		<aop:advisor advice-ref="ad" pointcut-ref="pt"/>
+		<aop:advisor advice-ref="ad" pointcut-ref="pt" order="2"/>
 	</aop:config>
 	
 	<!-- 上面的声明式事务,如API所说是一个样板,下面配置的日志与异常,才是AOP的标准写法 -->
@@ -77,7 +77,7 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 	<!-- 指定aop的类 -->
 	<aop:config>
 	    <!-- 告知spring切面类 -->
-		<aop:aspect ref="aop">
+		<aop:aspect ref="aop" order="1">
 			<aop:pointcut expression="execution(* cn.dw.service.*.*(..))" id="pt"/>
 			<!-- 此处配置通知,通知分为前置、后置、环绕、异常 
 			     method:指定要切入的方法(通知)
