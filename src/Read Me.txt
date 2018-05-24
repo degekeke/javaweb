@@ -18,9 +18,7 @@
 
 同样这些代码,在很多的方法中都需要编写,而且功能相同,因此也属于横切面的代码可以采用Spring AOP(面向切面编程来解决)
 
-6: 注解有三种: 元注解(@Target),系统注解(@Override),自定义注解
-
-       元注解:就是用来定义注解的注解
+6: 注解有三种: 元注解(@Target),系统注解(@Override),自定义注解     元注解:就是用来定义注解的注解
        
 7: 创建ProductController,通过它依赖productService,我们需要在类和方法上面都要添加:@RequestMapping这样前端就可以通过地址访问Controller
 
