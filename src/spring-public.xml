@@ -19,16 +19,18 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 		<property name="user" value="root" />
 		<property name="password" value="root" />
 	</bean>
-	<!-- 实现了访问数据库的增、删、查、改操作,因此它肯定需要Connection -->
-	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
-		<!-- name="dataSource" 是因为源码中有setDataSource方法 -->
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds" />
+		<property name="configLocation" value="classpath:mybatis.cfg.xml" />
 	</bean>
-
-	<!-- 配置productDao依赖JdbcTemplate -->
-	<bean id="productDao" class="cn.dw.dao.ProductDaoImpl">
-		<!-- 对应的是相应的set方法 ,ref对应的xml中id -->
-		<property name="jdbcTemplate" ref="jt" />
+	
+	<!-- 根据接口与mapper文件动态生成实现类 -->
+	<bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	    <!-- 需要根据指定的接口动态生成实现类 -->
+		<property name="mapperInterface" value="cn.dw.dao.ProductDao" />
+		<!-- 动态的生成的实现类进行数据操作肯定需要sqlSession,因此当前类肯定需要依赖sqlSessionFactory -->
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
 	<bean id="productService" class="cn.dw.service.ProductServiceImpl">

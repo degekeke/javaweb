@@ -2,19 +2,16 @@ package cn.dw.service;
 
 import java.util.List;
 
-import org.springframework.dao.support.DaoSupport;
-import org.springframework.stereotype.Service;
-
-import cn.dw.dao.ProductDaoImpl;
+import cn.dw.dao.ProductDao;
 import cn.dw.model.Product;
 
 // 项目的业务逻辑实现,都被封装在Service层,此层不能有访问数据库的代码,如果需要进行数据库操作,则应该Service-->Dao
 public class ProductServiceImpl {
 	// spring通过xml的配置取代了硬编码,依赖都要交给Spring管理
-	private ProductDaoImpl productDao = null;
+	private ProductDao productDao = null;
 
 	// 通过set注入
-	public void setProductDao(ProductDaoImpl productDao) {
+	public void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
 	}
 
@@ -23,7 +20,7 @@ public class ProductServiceImpl {
 	}
 
 	public List<Product> queryByName(String name, int page, int size) {
-		return productDao.queryByName(name, page, size);
+		return productDao.queryByName("%" + name + "%", (page-1)*size, size);
 	}
 
 	// 此数据会从显示层传入

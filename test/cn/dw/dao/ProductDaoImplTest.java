@@ -46,7 +46,7 @@ public class ProductDaoImplTest {
 	@Test
 	public void testGetById() {
 		// "%%":代表查询所有记录
-		System.out.println(serviceImpl.getById(4));
+		System.out.println(serviceImpl.getById(6));
 	}
 
 	@Test
