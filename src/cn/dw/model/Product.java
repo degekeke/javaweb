@@ -5,6 +5,12 @@ import java.util.Date;
 // 此类是model  类->表    对象->记录  属性->字段  
 public class Product {
 	
+	public static void main(String[] args) {
+		 String name = Product.class.getName();
+		 System.out.println(name);
+		 System.out.println(name.replace('.', '/') + ".xml");
+	}
+	
 //	public static void main(String[] args) {
 //		// 类只有一份,类只定义的属性和方法
 //		Product product=new Product();

@@ -14,10 +14,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 	<!--   此处是映射文件的配置,后期SQL语句会写到此映射文件中   -->
 	<mappers>
-		<mapper resource="cn/dw/dao/ProductDao.xml" />
-		<!-- 
-			<package name=""/>
-		 -->
+	    <!-- 
+			<mapper resource="cn/dw/dao/ProductDao.xml" />
+	     -->	
+	     <!-- 如果有多个mapper文件,则也可以采用包扫描 -->
+		<package name="cn.dw.dao" />
 	</mappers>
 	
 </configuration>

@@ -25,11 +25,16 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 		<property name="configLocation" value="classpath:mybatis.cfg.xml" />
 	</bean>
 	
-	<!-- 根据接口与mapper文件动态生成实现类 -->
+	<!-- 根据接口与mapper文件动态生成实现类,此方式在在多个Dao接口时,会出现代码的冗余操作,可以采用类扫描进行批量注册
 	<bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	    <!-- 需要根据指定的接口动态生成实现类 -->
 		<property name="mapperInterface" value="cn.dw.dao.ProductDao" />
-		<!-- 动态的生成的实现类进行数据操作肯定需要sqlSession,因此当前类肯定需要依赖sqlSessionFactory -->
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	-->
+	<!-- 只需要制定接口所在的包路径即可 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <!-- cn.dw.dao里面的所有接口都会被扫描,然后关联相应 mapper.xml在运行时动态生成代理类,而且名称是类名小写 -->
+	    <property name="basePackage" value="cn.dw.dao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 

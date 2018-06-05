@@ -1,3 +1,10 @@
+2018/06/05:
+
+   1: XML验证规范有dtd,xsd它们都是用来验证xml有效性
+   2: ?: 代表0~1   +: 1~max  * 0~max  
+
+
+
 1:JDBC: Java原生数据库访问技术,代码重复量大,并且要进行异常处理和资源释放(很容易导致内存泄露,SQL注入),不支持缓存
 
 2: JDBCTemplate: 仅仅对JDBC进行简单的封装,默认不提供缓存,也不支持动态SQL语句构建.
@@ -11,5 +18,34 @@ ThreadLocal: 线程变量,此变量会存储到线程中,如果同一个线程�
 5: MyBatis为什么要与Spring整合操作: 主要是可以通过Spring的AOP来管理Mybatis的事务(编程式事务--->声明式事务)
 
    Mybatis替换JdbcTemplate
+   
+6：实现mybatis与spring整合操作
+
+  1: 添加jar + mybatis.cfg.xml配置文件,而且把mybatis.cfg.xml配置文件中数据源删除掉
+
+  2: SqlSessionFactoryBean来加载mybatis配置文件,并且依赖dataSource
+
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<property name="configLocation" value="classpath:mybatis.cfg.xml" />
+	</bean>
+	
+  3: 删除spring配置文件中的 ProductDaoImpl + JdbcTemplate，采用接口与Mapper.xml文件取代
+
+  4: 接口中定义的方法名称必须同mapper中的id，接口全名必须与mapper中的namespace="cn.dw.dao.ProductDao"（只要进行约定才能在运行时动态生成Dao实现类）
+
+  5: MapperFactoryBean可以根据接口 +
+SqlSessionFactory在运行时动态生成Dao实现类,然后Service依赖指定的ID即可
+
+  <!-- 根据接口与mapper文件动态生成实现类 -->
+  <bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <!-- 需要根据指定的接口动态生成实现类 -->
+	<property name="mapperInterface" value="cn.dw.dao.ProductDao" />
+	<!-- 动态的生成的实现类进行数据操作肯定需要sqlSession,因此当前类肯定需要依赖sqlSessionFactory -->
+	<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+</bean>
+
+
+
 
    
