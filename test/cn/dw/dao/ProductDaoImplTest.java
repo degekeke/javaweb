@@ -37,7 +37,7 @@ public class ProductDaoImplTest {
 	@Test
 	public void testQueryByName() {
 		// "%%":代表查询所有记录
-		List<Product> proList = serviceImpl.queryByName("", 1, 3);
+		List<Product> proList = serviceImpl.queryByName("", 1, 2);
 		for (Product temp : proList) {
 			System.out.println(temp);
 		}
@@ -51,8 +51,13 @@ public class ProductDaoImplTest {
 	}
 
 	@Test
-	public void testDelete() {
-		fail("Not yet implemented");
+	public void cacheTest() throws InterruptedException {
+		serviceImpl.getById(1);   // 0.0         
+		serviceImpl.getById(1);   // 0.5
+		serviceImpl.getById(1);   // 0.666
+		serviceImpl.getById(2);   // 0.5
+		serviceImpl.getById(3);   // 0.4  ==> 1
+		serviceImpl.getById(1);   // 	
 	}
 
 	@Test

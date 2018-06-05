@@ -4,6 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 当前xml文件会取代以后daoImpl,因此所有的SQL语句建议编写XML文件中,而且此XML文件需要添加到mybatis.cfg.xml主配置文件中 -->
 <mapper namespace="cn.dw.dao.ProductDao">
+   
+   <!-- 默认是开启的缓存配置 -->
+   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
    <resultMap type="product" id="baseMap">
    		<!-- 主键才使用id标签 -->
