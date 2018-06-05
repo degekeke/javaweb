@@ -8,8 +8,11 @@ public class Category {
 	
 	private String name;
 	
-	// category -> product ==>  one-to-many
-	
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", proList=" + proList + "]";
+	}
+
 	private List<Product> proList;
 	
 	public List<Product> getProList() {

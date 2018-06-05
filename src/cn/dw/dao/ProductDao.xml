@@ -11,7 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		<result property="name" column="pro_name"/>
    		<result property="price" column="pro_price"/>
    		<result property="remark" column="pro_remark"/>
-   		<result property="date" column="pro_date"/>   
+   		<result property="date" column="pro_date"/>
+   </resultMap>
+   
+   <resultMap type="product" id="joinCategory" extends="baseMap">
+   	   <!-- 配置关联Category类别表   resultMap: 指向CategoryDao.xml映射文件中的map-->
+   	   <association property="category" resultMap="cn.dw.dao.CategoryDao.baseMap" />
    </resultMap>
 
    <!-- 此处将要编写数据入库的SQL语句    public void save(Product product)-->
@@ -24,10 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	   select * from product where pro_id = #{id}
    </select>
    <!-- 如果接口中有多个参数,则通过@Param来绑定 -->
-   <select id="queryByName" resultType="product">
-   	   select * from product where name like #{name} limit #{start},#{end}
+   <select id="queryByName" resultMap="joinCategory">
+   	   select * from product p join category c on p.cat_id = c.cat_id where p.pro_name like #{name} limit #{start},#{end}
    </select>
-   
    
    <update id="update" parameterType="product">
        <!-- #{name},会自动调用Product.getName()方法  

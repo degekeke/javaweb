@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 当前xml文件会取代以后daoImpl,因此所有的SQL语句建议编写XML文件中,而且此XML文件需要添加到mybatis.cfg.xml主配置文件中 -->
+<mapper namespace="cn.dw.dao.CategoryDao">
+
+   <resultMap type="category" id="baseMap">
+   		<!-- 主键才使用id标签 -->
+   		<id property="id" column="cat_id"/>
+   		<result property="name" column="cat_name"/>
+   </resultMap>
+   
+   <resultMap type="category" id="joinProduct" extends="baseMap">
+        <!-- one查询many方时候采用的是集合collection -->
+   		<collection property="proList" resultMap="cn.dw.dao.ProductDao.baseMap"/>
+   </resultMap>
+   
+   <select id="getById" parameterType="int" resultMap="baseMap">
+   		select * from category c where c.cat_id = #{id} 
+   </select>
+   
+   <select id="queryByName" parameterType="string" resultMap="joinProduct">
+   		select * from category c join product p on c.cat_id = p.cat_id where c.cat_name like #{name} 
+   </select>
+   
+   
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
