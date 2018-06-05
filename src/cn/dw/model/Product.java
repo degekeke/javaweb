@@ -4,41 +4,30 @@ import java.util.Date;
 
 // 此类是model  类->表    对象->记录  属性->字段  
 public class Product {
-	
-	public static void main(String[] args) {
-		 String name = Product.class.getName();
-		 System.out.println(name);
-		 System.out.println(name.replace('.', '/') + ".xml");
-	}
-	
-//	public static void main(String[] args) {
-//		// 类只有一份,类只定义的属性和方法
-//		Product product=new Product();
-//		System.out.println(product);
-//		product.setName("xxx");;
-//		System.out.println(product.getName());
-//		
-//		
-//		Product product2=new Product();
-//		System.out.println(product2);
-//		product2.setName("yyy");;
-//		System.out.println(product2.getName());
-//	}
-	
-	
 
 	private Integer id;
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", remark=" + remark + ", date=" + date
-				+ "]";
-	}
 
 	private String name;
 	private Double price;
 	private String remark;
 	private Date date;
 	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", remark=" + remark + ", date=" + date
+				+ ", category=" + category + "]";
+	}
+
+	private Category category;
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	public Date getDate() {
 		return date;
 	}

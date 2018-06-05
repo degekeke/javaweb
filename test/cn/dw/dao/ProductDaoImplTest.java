@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.dw.model.Category;
 import cn.dw.model.Product;
 import cn.dw.service.ProductServiceImpl;
 
@@ -46,7 +47,7 @@ public class ProductDaoImplTest {
 	@Test
 	public void testGetById() {
 		// "%%":代表查询所有记录
-		System.out.println(serviceImpl.getById(6));
+		System.out.println(serviceImpl.getById(2));
 	}
 
 	@Test
@@ -62,9 +63,13 @@ public class ProductDaoImplTest {
 	@Test
 	public void testSave() {
 		Product product = new Product();
-		product.setName("aop demo7");
-		product.setPrice(3.14);
+		product.setName("联想笔记本电脑");
+		product.setPrice(6999.00);
 		product.setRemark("remark");
+		// 指定当前商品的类别
+		Category category = new Category();
+		category.setId(1);
+		product.setCategory(category);
 		serviceImpl.save(product);
 	}
 

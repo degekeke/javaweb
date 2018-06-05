@@ -5,11 +5,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 当前xml文件会取代以后daoImpl,因此所有的SQL语句建议编写XML文件中,而且此XML文件需要添加到mybatis.cfg.xml主配置文件中 -->
 <mapper namespace="cn.dw.dao.ProductDao">
 
+   <resultMap type="product" id="baseMap">
+   		<!-- 主键才使用id标签 -->
+   		<id property="id" column="pro_id"/>
+   		<result property="name" column="pro_name"/>
+   		<result property="price" column="pro_price"/>
+   		<result property="remark" column="pro_remark"/>
+   		<result property="date" column="pro_date"/>   
+   </resultMap>
+
    <!-- 此处将要编写数据入库的SQL语句    public void save(Product product)-->
    <insert id="save" parameterType="product">
        <!-- #{name},会自动调用Product.getName()方法  -->
-   	   insert into product (name,price,remark) values (#{name},#{price},#{remark})
+   	   insert into product (pro_name,pro_price,pro_remark,cat_id) values (#{name},#{price},#{remark},#{category.id})
    </insert>
+   <!-- 如果表的列名与类的属性名称不匹配,则无法自动注入,因此需要自定义匹配规则.ResultMap -->
+   <select id="getById" parameterType="int" resultMap="baseMap">
+   	   select * from product where pro_id = #{id}
+   </select>
+   <!-- 如果接口中有多个参数,则通过@Param来绑定 -->
+   <select id="queryByName" resultType="product">
+   	   select * from product where name like #{name} limit #{start},#{end}
+   </select>
+   
    
    <update id="update" parameterType="product">
        <!-- #{name},会自动调用Product.getName()方法  
@@ -37,14 +55,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <delete id="delete" parameterType="int">
         delete from product where id = #{id}
    </delete>
-   
-   <select id="getById" parameterType="int" resultType="product">
-   	   select * from product where id = #{abc}
-   </select>
-   <!-- 如果接口中有多个参数,则通过@Param来绑定 -->
-   <select id="queryByName" resultType="product">
-   	   select * from product where name like #{name} limit #{start},#{end}
-   </select>
   
 </mapper>
 
