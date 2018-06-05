@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <!-- 加载bootstrap.css文件 -->
@@ -46,8 +47,13 @@
 				<label for="cid" class="col-sm-2 control-label">所属类别:</label>
 				<div class="col-sm-8">
 					<select class="form-control" name="category.id" id="cid">
+					   <!-- 
 					    <option value="1">数码产品</option>
 					    <option value="2">服饰</option>
+					    -->
+					    <c:forEach items="${applicationScope.categoryList}" var="category">
+					         <option value="${category.id}">${category.name}</option>
+					    </c:forEach>
 					</select>
 				</div>
 			</div>

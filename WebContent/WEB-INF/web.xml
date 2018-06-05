@@ -3,6 +3,9 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
+	
+	<!-- web组件的有先级别：Servlet < Filter < ServletContextListener  -->
+	
 	<display-name>javaweb</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
@@ -21,7 +24,8 @@
 		<init-param>
 		    <!-- 源码中用来存储配置文件的变量 -->
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring-*.xml,classpath:mvc-*.xml</param-value>
+			<!-- 由于servlet有先级别低,因此不适合加载spring的配置文件. -->
+			<param-value>classpath:mvc-*.xml</param-value>
 		</init-param>
 		<!-- 第一个请求访问servlet时才会初始化.但是我们希望项目启动时就加载配置文件,数值越小优先级越高 -->
 		<load-on-startup>1</load-on-startup>
@@ -47,6 +51,24 @@
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-public.xml</param-value>
+	</context-param>
+	
+	<!-- 需要通过监听器加载spring的配置文件,spring配置文件加载之后会存储到application内置对象中 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>cn.dw.utils.InitServletContextListener</listener-class>
+	</listener>
+	
+	
+	
 
 
 

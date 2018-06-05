@@ -41,6 +41,10 @@ http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 	<bean id="productService" class="cn.dw.service.ProductServiceImpl">
 		<property name="productDao" ref="productDao" />
 	</bean>
+	
+	<bean id="categoryService" class="cn.dw.service.CategoryServiceImpl">
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
 
 	<!-- 配置声明式事务: 基于AOP的实现,由于Spring高度封装提供的是模板,但是后面日志、异常还是需要AOP的概念 -->
 	<!-- 配置事务管理器 -->
