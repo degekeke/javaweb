@@ -36,6 +36,7 @@
 				<th>价格</th>
 				<th>备注</th>
 				<th>日期</th>
+				<th>所属类别</th>
 				<th>操作</th>
 			</tr>
 			<c:forEach items="${requestScope.proList}" var="product">
@@ -45,6 +46,7 @@
 					<td>${product.price}</td>
 					<td>${product.remark}</td>
 					<td>${product.date}</td>
+					<td>${product.category.name}</td>
 					<td>更新|删除</td>
 				</tr>
 			</c:forEach>

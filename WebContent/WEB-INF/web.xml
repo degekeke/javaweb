@@ -33,6 +33,20 @@
 		<!-- jsp页面中,肯定会有 *.css,*.js 但是这些请求都不应该交给Spring MVC,因此为了提高效率,约定一个请求的后缀 -->
 		<url-pattern>*.mvc</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+	    <filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
 

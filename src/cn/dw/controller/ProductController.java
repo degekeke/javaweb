@@ -34,7 +34,7 @@ public class ProductController extends BaseController {
 	@RequestMapping(value="/queryByName")
 	public String queryByName(String keyword) {
 		// 1: 此处应该调用ProductService.save();
-		List<Product> proList = productService.queryByName("%" + keyword + "%", 1, 10);
+		List<Product> proList = productService.queryByName("%" + keyword + "%", 1, 100);
 		request.setAttribute("proList", proList);
 		// 2: 跳转到查询页面,如果未添加则说明系统自带了工程名
 		// 如果当前对象与目标页面(jsp) 存在着request数据共享,则只能用转发
