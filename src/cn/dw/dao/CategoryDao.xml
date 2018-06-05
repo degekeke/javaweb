@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
    <select id="queryByName" parameterType="string" resultMap="joinProduct">
-   		select * from category c join product p on c.cat_id = p.cat_id where c.cat_name like #{name} 
+   		select * from category c left join product p on c.cat_id = p.cat_id where c.cat_name like #{name} 
    </select>
    
    

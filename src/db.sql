@@ -22,6 +22,8 @@ create table product
 
 insert into category (cat_name) values ('数码产品');
 insert into category (cat_name) values ('服饰');
+insert into category (cat_name) values ('儿童玩具');
+insert into category (cat_name) values ('其它');
 
 select * from category;
 

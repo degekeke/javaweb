@@ -10,6 +10,11 @@ http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
 http://www.springframework.org/schema/tx 
 http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <bean id="timerTask" class="cn.dw.utils.MyTimerTask" >
+    	<property name="categoryService" ref="categoryService" />
+    </bean>
+
 	<!-- XML: 有两种: 合法XML(符合语法),有效的XML(在合法的基础上,进行xsd或者dtd的验证称为有效XML) -->
 	<!-- 给连接池配置连接数据库四大参数 -->
 	<bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
