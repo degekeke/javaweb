@@ -1,0 +1,24 @@
+<ehcache>
+    <!-- 指定硬盘输出路径 -->
+    <diskStore path="java.io.tmpdir"/>
+    
+    <!-- 默认mybatis ehcache是根据sql语句为单位.因此 query,get是不能共享缓存数据 -->
+    
+    <!-- 
+       1: maxElementsInMemory="10": 结果集
+       2: overflowToDisk="false": 如果内存不够是否支持溢出到硬盘,一般来说为true
+       3: eternal: 永久的,如果为True则后面两个参数无效:（timeToIdleSeconds，timeToLiveSeconds） 一般不建议使用,应该给对象配置生命周期
+       4: timeToIdleSeconds="3":如果当前对象三秒没有访问则销毁
+       5: timeToLiveSeconds="5":对象总生命周期
+       6: memoryStoreEvictionPolicy="LRU": 时间优先算法：最近最少使用的对象被移除
+       7: memoryStoreEvictionPolicy="LFU": 频率优先算法：最少使用的对象被移除
+     -->
+    
+    <defaultCache
+         maxElementsInMemory="2"
+         eternal="true"
+         timeToIdleSeconds="3"
+         timeToLiveSeconds="5"
+		 overflowToDisk="false"       
+         memoryStoreEvictionPolicy="LFU"/>
+</ehcache>
