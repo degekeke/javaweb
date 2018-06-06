@@ -1,3 +1,14 @@
+2018/06/06
+
+   给mvc返回json格式:
+   
+     1: 额外添加2个jar包；
+     
+     2:使用 @ResponseBody声明返回值；
+     
+     3:配置<mvc:annotation-driven />；==>需要引入：xmlns:mvc="http://www.springframework.org/schema/mvc"；
+
+
 2018/06/05:
 
    1: XML验证规范有dtd,xsd它们都是用来验证xml有效性

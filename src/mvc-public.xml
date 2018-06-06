@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
 http://www.springframework.org/schema/context 
-http://www.springframework.org/schema/context/spring-context-4.0.xsd ">
-
-   <!-- controller并不需要制定id,因为访问Controller是通过注解: @RequestMapping -->
+http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+http://www.springframework.org/schema/mvc 
+http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+   <mvc:annotation-driven />
+   
+   <!-- controller并不需要制定id,因为访问Controller是通过注解: @RequestMapping  -->
    <bean class="cn.dw.controller.ProductController" />
+   <bean class="cn.dw.controller.CategoryController" />
+   
    
    <!-- spring mvc推荐使用注解取代XML,但是如果采用注解则必须开启注解扫描 -->
    <!-- base-package: 指定的包名即可 -->
    <context:component-scan base-package="cn.dw.controller" />
+   
 
 </beans>
 

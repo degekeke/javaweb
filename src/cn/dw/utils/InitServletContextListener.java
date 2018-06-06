@@ -24,7 +24,7 @@ public class InitServletContextListener implements ServletContextListener {
 		MyTimerTask timerTask = context.getBean("timerTask",MyTimerTask.class);
 		timerTask.setApplication(application);
 		// true则定义为守护线程
-		new Timer(true).schedule(timerTask, 0, 5000);
+		new Timer(true).schedule(timerTask, 0, 1000 * 60 * 60);
 	}
 
 

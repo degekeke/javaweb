@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <title>查询商品</title>
+    <%@ include file="/WEB-INF/public.jspf" %>
 <!-- 加载bootstrap.css文件 -->
-<link rel="stylesheet" href="/javaweb/css/bootstrap.css" />
 </head>
 <body>
     <!-- 加载的bootstrap框架之后,所有的body标签里面的元素,需要存储在 div class="container" -->
 	<div class="container" style="padding-top: 10px">
 		<!-- form-inline:代表内联(文本框与按钮在同一行)表单, -->
-		<form action="<%=request.getContextPath()%>/product/queryByName.mvc"
+		<form action="${shop}/product/queryByName.mvc"
 			method="post" class="form-inline">
 			<!-- form-group:代表的表单元素组(包括提示文字 + 表单元素) -->
 			<div class="form-group">
